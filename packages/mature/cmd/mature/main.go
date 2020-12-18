@@ -45,7 +45,7 @@ func main() {
 		lambda.Start(app.Handle)
 	} else {
 		if err := app.Run(); err != nil {
-			log.Println("[ERROR]", err)
+			log.Printf("[ERROR] %+v\n", err)
 			os.Exit(mature.ExitCodeErr)
 		}
 		os.Exit(mature.ExitCodeOK)
