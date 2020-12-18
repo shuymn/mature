@@ -8,12 +8,15 @@
   "scripts": {
     "build": "run-s build:*",
     "build:mature": "yarn workspace @mature/mature build",
-    "deploy": "yarn run -W clean && yarn run -W build && yarn workspace @mature/infra deploy",
+    "build:notify": "yarn workspace @mature/notify build",
+    "deploy": "yarn run clean && yarn run build && yarn workspace @mature/infra deploy",
     "test": "run-s test:*",
     "test:mature": "yarn workspace @mature/mature test",
+    "test:notify": "yarn workspace @mature/notify test",
     "test:infra": "yarn workspace @mature/infra test",
     "clean": "run-s clean:*",
     "clean:mature": "yarn workspace @mature/mature clean",
+    "clean:notify": "yarn workspace @mature/notify clean",
     "clean:infra": "yarn workspace @mature/infra clean"
   },
   "devDependencies": {
