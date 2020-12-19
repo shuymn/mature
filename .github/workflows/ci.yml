@@ -72,6 +72,8 @@ jobs:
           go-version: 1.x
       - name: Install statik
         run: go get github.com/rakyll/statik
+      - name: Build
+        run: yarn build
       - name: Test
         run: yarn test
 
