@@ -1,20 +1,11 @@
 import "@aws-cdk/assert/jest";
-import { SynthUtils } from "@aws-cdk/assert";
 import * as cdk from "@aws-cdk/core";
-import { MatureStack } from "../lib/mature-stack";
-
-describe("snapshot test", () => {
-  test("match", () => {
-    const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-  });
-});
+import { NotifyStack } from "../lib/notify-stack";
 
 describe("fine-grained assertions", () => {
   test("iam role", () => {
     const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
+    const stack = new NotifyStack(app, "TestNotifyStack");
 
     expect(stack).toHaveResource("AWS::IAM::Role", {
       AssumeRolePolicyDocument: {
@@ -43,13 +34,13 @@ describe("fine-grained assertions", () => {
           ],
         },
       ],
-      RoleName: "mature-execution-role",
+      RoleName: "mature-notify-execution-role",
     });
   });
 
   test("iam policy", () => {
     const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
+    const stack = new NotifyStack(app, "TestNotifyStack");
 
     expect(stack).toHaveResource("AWS::IAM::Policy", {
       PolicyDocument: {
@@ -70,7 +61,7 @@ describe("fine-grained assertions", () => {
                     {
                       Ref: "AWS::AccountId",
                     },
-                    ":parameter/mature/production/access-token",
+                    ":parameter/mature/production/slack-token",
                   ],
                 ],
               },
@@ -86,19 +77,14 @@ describe("fine-grained assertions", () => {
                     {
                       Ref: "AWS::AccountId",
                     },
-                    ":parameter/mature/production/device-id/*",
+                    ":parameter/mature/production/channel-id",
                   ],
                 ],
               },
             ],
           },
           {
-            Action: "cloudwatch:PutMetricData",
-            Condition: {
-              StringEquals: {
-                "cloudwatch:namespace": "NatureRemo/RoomMetrics",
-              },
-            },
+            Action: "cloudwatch:GetMetricWidgetImage",
             Effect: "Allow",
             Resource: "*",
           },
@@ -115,19 +101,19 @@ describe("fine-grained assertions", () => {
 
   test("lambda function", () => {
     const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
+    const stack = new NotifyStack(app, "TestNotifyStack");
 
     expect(stack).toHaveResource("AWS::Lambda::Function", {
-      Handler: "mature",
+      Handler: "notify",
       Runtime: "go1.x",
       Environment: {
         Variables: {
-          MATURE_ACCESS_TOKEN_KEY: "/mature/production/access-token",
-          MATURE_DEVICE_ID_KEY: "/mature/production/device-id/main-room",
+          MATURE_SLACK_CHANNEL_ID_KEY: "/mature/production/channel-id",
+          MATURE_SLACK_TOKEN_KEY: "/mature/production/slack-token",
         },
       },
-      FunctionName: "mature",
-      MemorySize: 256,
+      FunctionName: "mature-notify",
+      MemorySize: 128,
       Timeout: 30,
       TracingConfig: {
         Mode: "Active",
@@ -137,7 +123,7 @@ describe("fine-grained assertions", () => {
 
   test("lambda event invoke config", () => {
     const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
+    const stack = new NotifyStack(app, "TestNotifyStack");
 
     expect(stack).toHaveResource("AWS::Lambda::EventInvokeConfig", {
       MaximumRetryAttempts: 0,
@@ -146,7 +132,7 @@ describe("fine-grained assertions", () => {
 
   test("lambda alias", () => {
     const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
+    const stack = new NotifyStack(app, "TestNotifyStack");
 
     expect(stack).toHaveResource("AWS::Lambda::Alias", {
       Name: "production",
@@ -155,18 +141,18 @@ describe("fine-grained assertions", () => {
 
   test("event rule", () => {
     const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
+    const stack = new NotifyStack(app, "TestNotifyStack");
 
     expect(stack).toHaveResource("AWS::Events::Rule", {
-      Name: "mature-rule",
-      ScheduleExpression: "rate(1 minute)",
+      Name: "mature-notify-rule",
+      ScheduleExpression: "cron(0 15 * * ? *)",
       State: "ENABLED",
     });
   });
 
   test("lambda permission", () => {
     const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
+    const stack = new NotifyStack(app, "TestNotifyStack");
 
     expect(stack).toHaveResource("AWS::Lambda::Permission", {
       Action: "lambda:InvokeFunction",

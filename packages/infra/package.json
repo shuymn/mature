@@ -6,7 +6,9 @@
     "mature": "bin/mature.js"
   },
   "scripts": {
-    "deploy": "cdk deploy",
+    "deploy": "run-s deploy:*",
+    "deploy:mature": "cdk deploy mature-stack",
+    "deploy:notify": "cdk deploy notify-stack",
     "test": "jest",
     "typecheck": "tsc -p . --noEmit",
     "lint": "eslint .",
