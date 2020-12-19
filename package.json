@@ -6,6 +6,9 @@
     "packages/*"
   ],
   "scripts": {
+    "build-local": "run-s build-local:*",
+    "build-local:mature": "yarn workspace @mature/mature build:local",
+    "build-local:notify": "yarn workspace @mature/notify build:local",
     "build": "run-s build:*",
     "build:mature": "yarn workspace @mature/mature build",
     "build:notify": "yarn workspace @mature/notify build",

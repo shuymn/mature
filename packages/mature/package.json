@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "make dist",
-    "build:dev": "make cmd/mature/mature",
+    "build:local": "make cmd/mature/mature",
     "test": "make test",
     "clean": "make clean"
   }
