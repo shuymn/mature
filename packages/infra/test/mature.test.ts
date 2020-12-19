@@ -1,15 +1,6 @@
 import "@aws-cdk/assert/jest";
-import { SynthUtils } from "@aws-cdk/assert";
 import * as cdk from "@aws-cdk/core";
 import { MatureStack } from "../lib/mature-stack";
-
-describe("snapshot test", () => {
-  test("match", () => {
-    const app = new cdk.App();
-    const stack = new MatureStack(app, "TestMatureStack");
-    expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
-  });
-});
 
 describe("fine-grained assertions", () => {
   test("iam role", () => {
