@@ -25,7 +25,7 @@ install: cmd/$(BIN)/$(BIN)
 
 .PHONY: test
 test:
-	go test -race ./...
+	go generate && go test -race ./...
 
 .PHONY: clean
 clean:
