@@ -1,16 +1,27 @@
+BIN := mature
+
+ifdef update
+	u=-u
+endif
+
 export GO111MODULE=on
 
-cmd/mature/mature: *.go cmd/mature/*.go
-	cd cmd/mature && go build -ldflags="-s -w"
+cmd/$(BIN)/$(BIN): *.go cmd/$(BIN)/*.go clean
+	cd cmd/$(BIN) && go build -ldflags="-s -w"
+
+.PHONY: deps
+deps:
+	go get ${u} -d
+	go mod tidy
 
 .PHONY: dist
-dist:
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0\
-		go build -ldflags="-s -w" -o ./dist/mature ./cmd/mature
+dist: clean
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
+		go build -ldflags="-s -w" -o ./dist/$(BIN) ./cmd/$(BIN)
 
 .PHONY: install
-install: cmd/mature/mature
-	install cmd/mature/mature ${GOPATH}/bin
+install: cmd/$(BIN)/$(BIN)
+	install cmd/$(BIN)/$(BIN) ${GOPATH}/bin
 
 .PHONY: test
 test:
@@ -18,5 +29,5 @@ test:
 
 .PHONY: clean
 clean:
-	rm -f cmd/mature/mature
-	rm -f dist/mature
+	rm -f cmd/$(BIN)/$(BIN)
+	rm -f dist/$(BIN)
