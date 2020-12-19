@@ -13,7 +13,8 @@
     "clean": "run-s clean:*",
     "clean:dist": "rimraf dist",
     "clean:cdk.out": "rimraf cdk.out",
-    "diff": "cdk diff"
+    "diff": "cdk diff",
+    "synth": "cdk synth"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.78.0",
