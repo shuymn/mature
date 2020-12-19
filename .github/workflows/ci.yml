@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    name: Build
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install
+        run: yarn install --frozen-lockfile
+      - name: Type Check
+        run: yarn workspace @mature/infra typecheck
+      - name: Build
+        run: yarn build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Test
+        run: yarn test
+
+  eslint:
+    name: Lint with eslint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Lint
+        run: yarn workspace @mature/infra lint
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+
+  golangci:
+    strategy:
+      matrix:
+        package: [mature, notify]
+    name: Lint with golangci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.33
+          working-directory: ./packages/${{ matrix.package }}
