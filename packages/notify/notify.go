@@ -27,7 +27,7 @@ type App struct {
 	Slack      Slack
 }
 
-//go:generate statik -src widget
+//go:generate statik -src=widget -include=*.json
 
 func New(conf *Config) *App {
 	return &App{Config: conf}
