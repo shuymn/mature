@@ -21,7 +21,6 @@
 
     "baseUrl": ".",
     "noEmit": true,
-    "typeRoots": ["./node_modules/@types"]
   },
   "exclude": ["cdk.out"],
 }
