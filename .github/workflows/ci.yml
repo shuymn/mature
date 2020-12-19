@@ -17,10 +17,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Install
+      - name: Install node modules
         run: yarn install --frozen-lockfile
       - name: Type Check
         run: yarn workspace @mature/infra typecheck
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
       - name: Build
         run: yarn build
 
@@ -37,10 +43,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
       - name: Build
         run: yarn build-local
 
@@ -54,12 +64,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Install
+      - name: Install node modules
         run: yarn install --frozen-lockfile
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
+      - name: Generate
+        run: go generate
       - name: Test
         run: yarn test
 
@@ -73,7 +87,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Install
+      - name: Install node modules
         run: yarn install --frozen-lockfile
       - name: Lint
         run: yarn workspace @mature/infra lint
@@ -87,6 +101,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
+      - name: Generate
+        run: go generate
       - name: Lint
         uses: golangci/golangci-lint-action@v2
         with:
