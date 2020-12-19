@@ -1,22 +1,9 @@
-import {
-  expect as expectCDK,
-  matchTemplate,
-  MatchStyle,
-} from "@aws-cdk/assert";
+import { SynthUtils } from "@aws-cdk/assert";
 import * as cdk from "@aws-cdk/core";
 import * as Mature from "../lib/mature-stack";
 
-test("Empty Stack", () => {
+test("Mature Stack", () => {
   const app = new cdk.App();
-  // WHEN
-  const stack = new Mature.MatureStack(app, "MyTestStack");
-  // THEN
-  expectCDK(stack).to(
-    matchTemplate(
-      {
-        Resources: {},
-      },
-      MatchStyle.EXACT
-    )
-  );
+  const stack = new Mature.MatureStack(app, "TestMatureStack");
+  expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
