@@ -37,7 +37,7 @@ func (s *ssmImpl) GetParameters(ctx context.Context, keys ...string) (map[string
 	input := new(ssm.GetParametersInput).SetNames(names).SetWithDecryption(true)
 	output, err := s.client.GetParametersWithContext(ctx, input)
 	if err != nil {
-		return nil, xerrors.Errorf("%w", err)
+		return nil, xerrors.Errorf("cannot get parameters: %w", err)
 	}
 
 	vs := make(map[string]string, len(keys))

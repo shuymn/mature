@@ -24,7 +24,7 @@ func (c *cloudWatchImpl) GetMetricWidgetImage(ctx context.Context, widget string
 	input := new(cloudwatch.GetMetricWidgetImageInput).SetMetricWidget(widget)
 	output, err := c.client.GetMetricWidgetImageWithContext(ctx, input)
 	if err != nil {
-		return nil, xerrors.Errorf("%w", err)
+		return nil, xerrors.Errorf("failed to get metric widget image: %w", err)
 	}
 	return output.MetricWidgetImage, nil
 }
