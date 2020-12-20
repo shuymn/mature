@@ -1,0 +1,11 @@
+{
+  "name": "@mature/mature",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "make dist",
+    "build:local": "make cmd/mature/mature",
+    "test": "make test",
+    "clean": "make clean"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@mature/notify",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "make dist",
+    "build:local": "make cmd/notify/notify",
+    "test": "make test",
+    "clean": "make clean"
+  }
+}

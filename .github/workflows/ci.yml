@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
+      - name: Type Check
+        run: yarn workspace @mature/infra typecheck
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
+      - name: Build
+        run: yarn build
+
+  build-local:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    name: Build local
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
+      - name: Build
+        run: yarn build-local
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test
+
+  eslint:
+    name: Lint with eslint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install node modules
+        run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn workspace @mature/infra lint
+
+  golangci:
+    strategy:
+      matrix:
+        package: [mature, notify]
+    name: Lint with golangci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.x
+      - name: Install statik
+        run: go get github.com/rakyll/statik
+      - name: Generate
+        working-directory: ./packages/${{ matrix.package }}
+        run: go generate
+      - name: Lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.33
+          working-directory: ./packages/${{ matrix.package }}

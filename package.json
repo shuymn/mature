@@ -1,0 +1,29 @@
+{
+  "name": "mature",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build-local": "run-s build-local:*",
+    "build-local:mature": "yarn workspace @mature/mature build:local",
+    "build-local:notify": "yarn workspace @mature/notify build:local",
+    "build": "run-s build:*",
+    "build:mature": "yarn workspace @mature/mature build",
+    "build:notify": "yarn workspace @mature/notify build",
+    "deploy": "yarn run clean && yarn run build && yarn workspace @mature/infra deploy",
+    "test": "run-s test:*",
+    "test:mature": "yarn workspace @mature/mature test",
+    "test:notify": "yarn workspace @mature/notify test",
+    "test:infra": "yarn workspace @mature/infra test",
+    "clean": "run-s clean:*",
+    "clean:mature": "yarn workspace @mature/mature clean",
+    "clean:notify": "yarn workspace @mature/notify clean",
+    "clean:infra": "yarn workspace @mature/infra clean"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1"
+  }
+}
