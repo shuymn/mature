@@ -31,7 +31,7 @@ func (s *ssmImpl) GetParameters(ctx context.Context, keys ...string) (map[string
 	}
 
 	if len(names) == 0 {
-		return nil, xerrors.Errorf("invalid keys given")
+		return nil, xerrors.New("invalid keys given")
 	}
 
 	input := new(ssm.GetParametersInput).SetNames(names).SetWithDecryption(true)
