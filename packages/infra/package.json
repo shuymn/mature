@@ -19,13 +19,13 @@
     "synth": "cdk synth"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.88.0",
+    "@aws-cdk/assert": "1.89.0",
     "@types/jest": "26.0.20",
     "@types/node": "10.17.51",
     "@types/source-map-support": "0.5.3",
     "@typescript-eslint/eslint-plugin": "4.15.0",
     "@typescript-eslint/parser": "4.15.0",
-    "aws-cdk": "1.88.0",
+    "aws-cdk": "1.89.0",
     "eslint": "7.20.0",
     "eslint-config-prettier": "7.2.0",
     "eslint-plugin-import": "2.22.1",
@@ -36,11 +36,11 @@
     "typescript": "4.1.5"
   },
   "dependencies": {
-    "@aws-cdk/aws-events": "1.88.0",
-    "@aws-cdk/aws-events-targets": "1.88.0",
-    "@aws-cdk/aws-iam": "1.88.0",
-    "@aws-cdk/aws-lambda": "1.88.0",
-    "@aws-cdk/core": "1.88.0",
+    "@aws-cdk/aws-events": "1.89.0",
+    "@aws-cdk/aws-events-targets": "1.89.0",
+    "@aws-cdk/aws-iam": "1.89.0",
+    "@aws-cdk/aws-lambda": "1.89.0",
+    "@aws-cdk/core": "1.89.0",
     "source-map-support": "0.5.19"
   }
 }
