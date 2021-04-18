@@ -9,7 +9,7 @@ require (
 	github.com/aws/aws-sdk-go v1.37.15
 	github.com/hashicorp/logutils v1.0.0
 	github.com/rakyll/statik v0.1.7
-	github.com/slack-go/slack v0.8.1
+	github.com/slack-go/slack v0.9.0
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
