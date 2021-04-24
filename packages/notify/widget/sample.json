@@ -1,0 +1,37 @@
+{
+  "metrics": [
+    [
+      {
+        "expression": "",
+        "label": "",
+        "id": "",
+        "yAxis": ""
+      }
+    ],
+    ["", "", "", "", { "yAxis": "", "id": "", "visible": false, "color": "" }],
+    ["", "", "", "", { "id": "", "yAxis": "", "color": "" }],
+    ["", "", "", "", { "id": "", "color": "" }]
+  ],
+  "view": "",
+  "stacked": false,
+  "stat": "",
+  "period": 60,
+  "yAxis": {
+    "right": {
+      "showUnits": false,
+      "min": 0,
+      "max": 100
+    },
+    "left": {
+      "showUnits": false,
+      "min": 0,
+      "max": 100
+    }
+  },
+  "title": "",
+  "width": 1000,
+  "height": 500,
+  "start": "-P1D",
+  "end": "P0D",
+  "timezone": "+0900"
+}
