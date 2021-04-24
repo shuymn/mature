@@ -3,14 +3,12 @@ package notify
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"embed"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	"github.com/aws/aws-sdk-go/service/ssm"
-	"github.com/rakyll/statik/fs"
-	_ "github.com/shuymn/mature/packages/notify/statik"
 	"github.com/slack-go/slack"
 	"golang.org/x/xerrors"
 )
@@ -27,7 +25,10 @@ type App struct {
 	Slack      Slack
 }
 
-//go:generate statik -src=widget -include=*.json
+//go:embed widget/*.json
+var static embed.FS
+
+const WidgetFileName = "natureremo.json"
 
 func New(conf *Config) *App {
 	return &App{Config: conf}
@@ -86,28 +87,17 @@ func (app *App) RunWithContext(ctx context.Context) error {
 		return xerrors.Errorf("failed to init lazy: %w", err)
 	}
 
-	statikFS, err := fs.New()
+	widget, err := static.ReadFile(WidgetFileName)
 	if err != nil {
-		return xerrors.Errorf("failed to get statik fs: %w", err)
+		return xerrors.Errorf("failed to read file. name: %s: %w", WidgetFileName, err)
 	}
 
-	r, err := statikFS.Open("/natureremo.json")
-	if err != nil {
-		return xerrors.Errorf("failed to open natureremo.json: %w", err)
-	}
-	defer r.Close()
-
-	contents, err := ioutil.ReadAll(r)
-	if err != nil {
-		return xerrors.Errorf("failed to read natureremo.json: %w", err)
-	}
-
-	b, err := app.CloudWatch.GetMetricWidgetImage(ctx, string(contents))
+	image, err := app.CloudWatch.GetMetricWidgetImage(ctx, string(widget))
 	if err != nil {
 		return xerrors.Errorf("failed to get metric widget image: %w", err)
 	}
 
-	if err = app.Slack.UploadImage(ctx, app.ChannelID, bytes.NewReader(b)); err != nil {
+	if err = app.Slack.UploadImage(ctx, app.ChannelID, bytes.NewReader(image)); err != nil {
 		return xerrors.Errorf("failed to upload image: %w", err)
 	}
 
