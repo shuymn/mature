@@ -3,7 +3,7 @@ package notify
 import (
 	"bytes"
 	"context"
-	_ "embed"
+	"embed"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -25,8 +25,10 @@ type App struct {
 	Slack      Slack
 }
 
-//go:embed widget/natureremo.json
-var natureremoJsonBytes []byte
+//go:embed widget/*.json
+var static embed.FS
+
+const WidgetFileName = "natureremo.json"
 
 func New(conf *Config) *App {
 	return &App{Config: conf}
@@ -85,12 +87,17 @@ func (app *App) RunWithContext(ctx context.Context) error {
 		return xerrors.Errorf("failed to init lazy: %w", err)
 	}
 
-	b, err := app.CloudWatch.GetMetricWidgetImage(ctx, string(natureremoJsonBytes))
+	widget, err := static.ReadFile(WidgetFileName)
+	if err != nil {
+		return xerrors.Errorf("failed to read file. name: %s: %w", WidgetFileName, err)
+	}
+
+	image, err := app.CloudWatch.GetMetricWidgetImage(ctx, string(widget))
 	if err != nil {
 		return xerrors.Errorf("failed to get metric widget image: %w", err)
 	}
 
-	if err = app.Slack.UploadImage(ctx, app.ChannelID, bytes.NewReader(b)); err != nil {
+	if err = app.Slack.UploadImage(ctx, app.ChannelID, bytes.NewReader(image)); err != nil {
 		return xerrors.Errorf("failed to upload image: %w", err)
 	}
 
