@@ -7,7 +7,7 @@ endif
 export GO111MODULE=on
 
 cmd/$(BIN)/$(BIN): *.go cmd/$(BIN)/*.go clean
-	go generate && cd cmd/$(BIN) && go build -ldflags="-s -w"
+	cd cmd/$(BIN) && go build -ldflags="-s -w"
 
 .PHONY: deps
 deps:
@@ -16,7 +16,7 @@ deps:
 
 .PHONY: dist
 dist: clean
-	go generate && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
 		go build -ldflags="-s -w" -o ./dist/$(BIN) ./cmd/$(BIN)
 
 .PHONY: install
@@ -25,7 +25,7 @@ install: cmd/$(BIN)/$(BIN)
 
 .PHONY: test
 test:
-	go generate && go test -race ./...
+	go test -race ./...
 
 .PHONY: clean
 clean:
