@@ -126,7 +126,9 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Test
-        run: yarn test
+        run: |
+          mkdir -p ../mature/dist ../notify/dist
+          yarn test
 
   build:
     needs: Setup
