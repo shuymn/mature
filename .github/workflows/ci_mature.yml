@@ -7,10 +7,12 @@ on:
     paths:
       - "packages/mature/**"
       - ".github/workflows/ci_mature.yml"
+      - "yarn.lock"
   pull_request:
     paths:
       - "packages/mature/**"
       - ".github/workflows/ci_mature.yml"
+      - "yarn.lock"
 
 jobs:
   setup:
