@@ -7,10 +7,12 @@ on:
     paths:
       - "packages/notify/**"
       - ".github/workflows/ci_notify.yml"
+      - "yarn.lock"
   pull_request:
     paths:
       - "packages/notify/**"
       - ".github/workflows/ci_notify.yml"
+      - "yarn.lock"
 
 jobs:
   setup:

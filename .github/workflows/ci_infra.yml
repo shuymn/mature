@@ -7,10 +7,12 @@ on:
     paths:
       - "packages/infra/**"
       - ".github/workflows/ci_infra.yml"
+      - "yarn.lock"
   pull_request:
     paths:
       - "packages/infra/**"
       - ".github/workflows/ci_infra.yml"
+      - "yarn.lock"
 
 jobs:
   setup:
