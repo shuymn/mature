@@ -8,7 +8,7 @@ require (
 	github.com/aws/aws-lambda-go v1.26.0
 	github.com/aws/aws-sdk-go v1.40.45
 	github.com/hashicorp/logutils v1.0.0
-	github.com/slack-go/slack v0.9.4
+	github.com/slack-go/slack v0.9.5
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
