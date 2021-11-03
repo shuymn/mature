@@ -10,7 +10,7 @@ import (
 var SensorTypeString = map[natureremo.SensorType]string{
 	natureremo.SensorTypeTemperature:  "temperature",
 	natureremo.SensorTypeHumidity:     "humidity",
-	natureremo.SensortypeIllumination: "illumination",
+	natureremo.SensorTypeIllumination: "illumination",
 }
 
 type NatureRemo interface {
