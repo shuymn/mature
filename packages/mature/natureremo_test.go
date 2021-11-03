@@ -78,7 +78,7 @@ func TestFetchAllNewestSensorValue(t *testing.T) {
 							Value:     75,
 							CreatedAt: time.Date(2020, 12, 11, 10, 11, 12, 13, time.UTC),
 						},
-						natureremo.SensortypeIllumination: {
+						natureremo.SensorTypeIllumination: {
 							Value:     30,
 							CreatedAt: time.Date(2020, 12, 11, 10, 11, 10, 9, time.UTC),
 						},
@@ -98,7 +98,7 @@ func TestFetchAllNewestSensorValue(t *testing.T) {
 							Value:     35,
 							CreatedAt: time.Date(2019, 12, 11, 10, 11, 12, 13, time.UTC),
 						},
-						natureremo.SensortypeIllumination: {
+						natureremo.SensorTypeIllumination: {
 							Value:     15,
 							CreatedAt: time.Date(2019, 12, 11, 10, 11, 10, 9, time.UTC),
 						},
@@ -114,7 +114,7 @@ func TestFetchAllNewestSensorValue(t *testing.T) {
 					Value:     24.5,
 					CreatedAt: time.Date(2020, 12, 11, 10, 9, 8, 7, time.UTC),
 				},
-				natureremo.SensortypeIllumination: {
+				natureremo.SensorTypeIllumination: {
 					Value:     30,
 					CreatedAt: time.Date(2020, 12, 11, 10, 11, 10, 9, time.UTC),
 				},
@@ -174,7 +174,7 @@ func TestFetchAllNewestSensorValue_error(t *testing.T) {
 							Value:     75,
 							CreatedAt: time.Date(2020, 12, 11, 10, 11, 12, 13, time.UTC),
 						},
-						natureremo.SensortypeIllumination: {
+						natureremo.SensorTypeIllumination: {
 							Value:     30,
 							CreatedAt: time.Date(2020, 12, 11, 10, 11, 10, 9, time.UTC),
 						},
@@ -197,7 +197,7 @@ func TestFetchAllNewestSensorValue_error(t *testing.T) {
 							Value:     75,
 							CreatedAt: time.Date(2020, 12, 11, 10, 11, 12, 13, time.UTC),
 						},
-						natureremo.SensortypeIllumination: {
+						natureremo.SensorTypeIllumination: {
 							Value:     30,
 							CreatedAt: time.Date(2020, 12, 11, 10, 11, 10, 9, time.UTC),
 						},
