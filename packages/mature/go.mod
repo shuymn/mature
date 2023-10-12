@@ -9,6 +9,6 @@ require (
 	github.com/aws/aws-sdk-go v1.42.52
 	github.com/hashicorp/logutils v1.0.0
 	github.com/tenntenn/natureremo v0.4.0
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
+	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
