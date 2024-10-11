@@ -19,13 +19,13 @@
     "synth": "cdk synth"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.136.0",
+    "@aws-cdk/assert": "2.68.0",
     "@types/jest": "27.4.1",
     "@types/node": "16.11.22",
     "@types/source-map-support": "0.5.4",
     "@typescript-eslint/eslint-plugin": "5.13.0",
     "@typescript-eslint/parser": "5.13.0",
-    "aws-cdk": "1.136.0",
+    "aws-cdk": "2.162.1",
     "eslint": "8.10.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.25.4",
