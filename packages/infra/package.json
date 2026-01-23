@@ -19,7 +19,7 @@
     "synth": "cdk synth"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.136.0",
+    "@aws-cdk/assert": "2.68.0",
     "@types/jest": "27.5.2",
     "@types/node": "16.18.126",
     "@types/source-map-support": "0.5.10",
